@@ -1,8 +1,5 @@
 # flask_blog
 blog  example based flask 
-<<<<<<< HEAD
 fix_a add
-=======
-
-
->>>>>>> fix_B
+fix_B add
+fix_C add
