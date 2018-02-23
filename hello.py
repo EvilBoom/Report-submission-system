@@ -5,5 +5,9 @@ app = Flask(__name__)
 def index():
     return '<h1>hello word</h1>'
 
+@app.route('/usr/<name>')
+def user(name):
+    return '<h1>hello %s!</h1>'%name
+
 if __name__ == '__main__':
     app.run(debug=True)
