@@ -42,6 +42,10 @@ class NameForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
+@app.shell_context_processor
+def make_shell_context():
+    return dict(db=db,User=User ,Role=Role)
+
 @app.route('/',methods=['GET','POST'])
 def index():
     form = NameForm()
