@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from flask_script import Manager, Shell
+from app import create_app, db
 
 manager = Manager(app)
 manager.add_command("shell", Shell(make_context = make_shell_context))
