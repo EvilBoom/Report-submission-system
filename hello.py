@@ -7,7 +7,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import Required
 from flask_sqlalchemy import  SQLAlchemy
 from flask_migrate import Migrate
-
+from flask_mail import Mail,Message
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -16,11 +16,22 @@ app.config['SECRET_KEY']= 'Torpedo'
 app.config['SQLALCHEMY_DATABASE_URI']=\
     'sqlite:///'+ os.path.join(basedir,'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.comfig['MAIL_SERVER'] = 'smtp.googlemail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+app.config['FLASK_MAIL_SUBJECT_PREFIX'] = '[Flasky]'
+app.config['FLASK_MAIL_SENDER'] = 'Flasky Admin <flask@example.com>'
+app.config['FLASK_ADMIN'] = os.environ.get('FLASKY_ADMIN')
 
 bootstrap = Bootstrap(app) 
 moment = Moment(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app,db)
+mail = Mail(app)
+
+
 
 class Role(db.Model):
     __tablename__='roles'
@@ -39,6 +50,14 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+
+def send_email(to,subject,template,**kwargs):
+    msg = Message(app.config['FLASK_MAIL_SUBJECT_PREFIX'] + ' ' + subject,
+                  sender=app.config['FLASK_MAIL_SENDER'],recipients=[to])
+    msg.body = render_template(template + '.txt',**kwargs)
+    msg.html = render_template(tempalte + '.html',**kwargs)
+    mail.send(msg)
+
 
 class NameForm(FlaskForm):
     name = StringField('What is your name?', validators=[Required()])
@@ -59,11 +78,14 @@ def index():
             db,session.add(user)
             db.session.commit()
             session['known'] = False
+            if app.config['FLASK_ADMIN']:
+                send_email(app.config['FLASK_ADMIN'],'New User',
+                           'mail/new_user',user=user)
         else:
             session['known'] = True
         session['name']=form.name.data
         return rediect(url_for('index'))
-    return render_template('index.html',form=form,name=session.get('name'),known=session.get('known',False))
+    return render_template('index.html',form=form,name=session.get('name'), known=session.get('known',False))
 
 
 @app.route('/usr/<name>')
