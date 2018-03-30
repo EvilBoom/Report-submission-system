@@ -1,15 +1,14 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
-from flask_moment import  Moment
-from flask_sqlalchemy import  SQLAlchemy
-from flask_mail import Mail,Message
+from flask_moment import Moment
+from flask_sqlalchemy import SQLAlchemy
+from flask_mail import Mail
 from config import config
 
-
-bootstrap = Bootstrap(app) 
-moment = Moment(app)
-db = SQLAlchemy(app)
-mail = Mail(app)
+bootstrap = Bootstrap() 
+moment = Moment()
+db = SQLAlchemy()
+mail = Mail()
 
 def create_app(config_name):
     app = Flask(__name__)
