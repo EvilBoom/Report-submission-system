@@ -11,8 +11,10 @@ def index():
     if form.validate_on_submit():
         user=User.query.filter_by(username=form.name.data).first()
         if user is None :
-            user = User(username=form.name.data)
-            db.session.add(user)
+            user_role = Role(name = form.name.data)
+            user = User(username = form.name.data, role = user_role)
+            db.session.add_all([user_role, user])
+            db.session.commit()
             session['known'] = False
             if current_app.config['FLASK_ADMIN']:
                 send_email(current_app.config['FLASK_ADMIN'],'New User',
