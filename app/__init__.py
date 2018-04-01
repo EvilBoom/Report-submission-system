@@ -7,7 +7,7 @@ from config import config
 
 bootstrap = Bootstrap() 
 moment = Moment()
-db = SQLAlchemy()
+#db = SQLAlchemy(app)
 mail = Mail()
 
 def create_app(config_name):
@@ -18,8 +18,9 @@ def create_app(config_name):
     bootstrap.init_app(app)
     mail.init_app(app)
     moment.init_app(app)
-    db.init_app(app)
+#db.init_app(app)
 
+    db = SQLAlchemy(app)
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
