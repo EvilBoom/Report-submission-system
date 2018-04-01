@@ -7,3 +7,5 @@ class ProdConfig(Config):
 
 class DevConfig(Config):
     DEBUG = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://tt:123456@localhost:5432/flask"    
