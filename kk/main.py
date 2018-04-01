@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 def home():
     return '<h1>Hello World!</h1>'
 
-
+'''
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer(), primary_key=True)
@@ -25,6 +25,6 @@ class User(db.Model):
         return "<User '{}'>".format(self.username)
 
 
-
+'''
 if __name__ == '__main__':
     app.run()
