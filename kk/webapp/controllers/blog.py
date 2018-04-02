@@ -10,8 +10,8 @@ from webapp.forms import CommentForm
 blog_blueprint = Blueprint(
     'blog',
     __name__,
-    Tempalte_floder='templates/blog',
-    url_prefix="/blog"
+    template_folder=path.join(path.pardir, 'templates', 'blog'),
+    url_prefix='/blog'
 )
 
 

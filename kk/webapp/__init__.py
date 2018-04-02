@@ -1,7 +1,7 @@
 from flask import Flask,  redirect, url_for
 
-from models import db
-from controllers.blog import blog_blueprint
+from .models import db
+from .controllers.blog import blog_blueprint
 
 def create_app(object_name):
 
