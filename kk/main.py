@@ -126,14 +126,14 @@ def home(page = 1):
 @app.route('/post/<int:post_id>', methods=('GET', 'POST'))
 def post(post_id):
     form = CommentForm()
-    if form.validators_on_submit():
+    if form.validate_on_submit():
         new_comment = Comment()
-    new_comment.name = form.name.data
-    new_comment.text = form.text.data 
-    new_comment.post_id = post_id
-    new_comment.date = datetime.datetime.now()
-    db.session.add(new_comment)
-    db.session.commit()
+        new_comment.name = form.name.data
+        new_comment.text = form.text.data 
+        new_comment.post_id = post_id
+        new_comment.date = datetime.datetime.now()
+        db.session.add(new_comment)
+        db.session.commit()
 
     post = Post.query.get_or_404(post_id)
     tags = post.tags
@@ -146,7 +146,8 @@ def post(post_id):
         tags=tags, 
         comments=comments, 
         recent=recent, 
-        top_tags=top_tags
+        top_tags=top_tags,
+        form=form
     )
 
 
