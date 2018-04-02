@@ -9,10 +9,10 @@ bootstrap = Bootstrap()
 moment = Moment()
 mail = Mail()
 
-def create_app(config_name):
+def create_app(DevelopmentConfig):
     app = Flask(__name__)
-    app.config.from_object(config[config_name])
-    config[config_name].init_app(app)
+    app.config.from_object(config[DevelopmentConfig])
+    config[DevelopmentConfig].init_app(app)
 
     db.init_app(app)
     bootstrap.init_app(app)
