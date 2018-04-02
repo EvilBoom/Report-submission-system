@@ -3,7 +3,7 @@ class Config(object):
 
 
 class ProdConfig(Config):
-    pass
+    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://tt:123456@localhost:5432/flask"    
 
 class DevConfig(Config):
     DEBUG = True
