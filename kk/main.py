@@ -1,9 +1,13 @@
-
+import datetime
 from flask import Flask
 from config import DevConfig
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from flask import Flask, render_template
+from flask_wtf import Form  
+from wtforms import StringField, TextAreaField
+from wtforms.validators import DataRequired, Length
+
 
 app = Flask(__name__)
 app.config.from_object(DevConfig)
@@ -16,6 +20,7 @@ tags = db.Table(
     db.Column('tag_id',db.Integer, db.ForeignKey('tag.id'))
 )
 
+
 class Role(db.Model):
     __tablename__='roles'
     id=db.Column(db.Integer, primary_key = True)
@@ -24,6 +29,7 @@ class Role(db.Model):
 
     def __repr__(self):
         return '<Role %r>' % self.name
+
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -63,6 +69,7 @@ class Post(db.Model):
     def __repr__(self):
         return "<Post '{}'>".format(self.title)
 
+
 class Comment(db.Model):
     id = db.Column(db.Integer(),primary_key=True)
     name = db.Column(db.String(255))
@@ -94,6 +101,14 @@ def sidebar_data():
     return recent, top_tags
 
 
+class CommentForm(Form):
+    name = StringField(
+        'Name',
+        validators=[DataRequired(), Length(max=255)]
+    )
+    text = TextAreaField(u'Comment', validators=[DataRequired()])
+
+
 @app.route('/')
 @app.route('/<int:page>')
 def home(page = 1):
@@ -108,8 +123,18 @@ def home(page = 1):
     )
 
 
-@app.route('/post/<int:post_id>')
+@app.route('/post/<int:post_id>', methods=('GET', 'POST'))
 def post(post_id):
+    form = CommentForm()
+    if form.validators_on_submit():
+        new_comment = Comment()
+    new_comment.name = form.name.data
+    new_comment.text = form.text.data 
+    new_comment.post_id = post_id
+    new_comment.date = datetime.datetime.now()
+    db.session.add(new_comment)
+    db.session.commit()
+
     post = Post.query.get_or_404(post_id)
     tags = post.tags
     comments = post.comments.order_by(Comment.date.desc()).all()
@@ -153,6 +178,12 @@ def user(username):
         top_tags=top_tags
     )
 
+class CommentForm(Form):
+    name = StringField(
+        'Name',
+        validators=[DataRequired(), Length(max=255)]
+    )
+    text = TextAreaField(u'Comment', validators=[DataRequired()])
 
 if __name__ == '__main__':
     app.run()
