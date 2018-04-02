@@ -9,8 +9,8 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        {{ post.text | truncate(500) | safe }}
-                        <a href="{{ url_for('post', post_id=post.id)">readmore</a>
+                        {{ post.text | truncate(255) | safe }}
+                        <a href="{{ url_for('post', post_id=post.id) }}">readmore</a>
                     </div>
                 </div>
             {% endfor %}                
