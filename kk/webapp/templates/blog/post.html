@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="row">
-                <h1>Comments ({{ comments | length }})</h1>
+                <h1>Reply ({{ reply | length }})</h1>
                 <div class="col-lg-12">
                     <h3>New Comment:</h3>
                     <form method="POST" action="{{ url_for('.post', post_id=post.id) }}">
@@ -60,10 +60,10 @@
                     </form>
                 </div>
                 <div class="col-lg-12">
-                    {% if comments | length == 0 %}
-                    <p>There are no comments for this post.</p>
+                    {% if reply | length == 0 %}
+                    <p>There are no reply for this post.</p>
                     {% else %}
-                        {% for comment in comments %}
+                        {% for comment in reply %}
                             <div class="well">
                                 <p>By: {{ comment.name }} on {{ comment.date }}</p>
                                 <p>{{ comment.text }}</p>

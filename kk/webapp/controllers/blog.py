@@ -3,8 +3,8 @@ from os import path
 from sqlalchemy import func
 from flask import render_template, Blueprint
 
-from webapp.models import db, Post, Tag, Comment, tags
-from webapp.forms import CommentForm
+from webapp.models import db, Post, Tag, Reply, tags
+from webapp.forms import ReplyForm
 
 
 blog_blueprint = Blueprint(
@@ -39,26 +39,26 @@ def home(page = 1):
 
 @blog_blueprint.route('/post/<int:post_id>', methods=('GET', 'POST'))
 def post(post_id):
-    form = CommentForm()
+    form = ReplyForm()
     if form.validate_on_submit():
-        new_comment = Comment()
-        new_comment.name = form.name.data
-        new_comment.text = form.text.data 
-        new_comment.post_id = post_id
-        new_comment.date = datetime.datetime.now()
-        db.session.add(new_comment)
+        new_reply = Reply()
+        new_reply.name = form.name.data
+        new_reply.text = form.text.data 
+        new_reply.post_id = post_id
+        new_reply.date = datetime.datetime.now()
+        db.session.add(new_reply)
         db.session.commit()
 
     post = Post.query.get_or_404(post_id)
     tags = post.tags
-    comments = post.comments.order_by(Comment.date.desc()).all()
+    replys = post.replys.order_by(Reply.date.desc()).all()
     recent, top_tags = sidebar_data()
 
     return render_template(
         'post.html', 
         post=post, 
         tags=tags, 
-        comments=comments, 
+        replys=replys, 
         recent=recent, 
         top_tags=top_tags,
         form=form
