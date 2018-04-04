@@ -106,6 +106,7 @@ class Comment(db.Model):
     date = db.Column(db.DateTime())
     post_id = db.Column(db.Integer(), db.ForeignKey('post.id'))
 
+
     def __repr__(self):
         return "<Comment '{}'>".format(self.text[:15])
 

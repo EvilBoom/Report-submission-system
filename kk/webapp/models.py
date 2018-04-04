@@ -10,42 +10,109 @@ tags = db.Table(
     db.Column('tag_id',db.Integer, db.ForeignKey('tag.id'))
 )
 
+stu_crse = db.Table(
+    'student_course',
+    db.Column('student_id',db.Integer, db.ForeignKey('student.id')), 
+    db.Column('course_id',db.Integer, db.ForeignKey('course.id'))
+)
 
-class Role(db.Model):
-    __tablename__='roles'
-    id=db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(64),unique = True)
-    users = db.relationship('User',backref='role',lazy='dynamic')
+tch_crse = db.Table(
+    'teacher_course',
+    db.Column('teacher_id',db.Integer, db.ForeignKey('teacher.id')), 
+    db.Column('course_id',db.Integer, db.ForeignKey('course.id'))
+)
+
+tch_stu = db.Table(
+   'teacher_student',
+    db.Column('teacher_id',db.Integer, db.ForeignKey('teacher.id')), 
+    db.Column('student_id',db.Integer, db.ForeignKey('student.id')) 
+)
+
+
+class Tag(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    title = db.Column(db.String(255))
+
+    def __init__(self, title):
+        self.title = title
 
     def __repr__(self):
-        return '<Role %r>' % self.name
+        return "<Tag '{}'>".format(self.title)
 
 
-class User(db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer,primary_key=True)
-    username=db.Column(db.String(64),unique =True,index=True)
+class Teacher(db.Model):
+    id = db.Column(db.Integer(),primary_key=True)
+    teacher_name = db.Column(db.String(255))
     password = db.Column(db.String(255))
-    role_id=db.Column(db.Integer,db.ForeignKey('roles.id'))
-    posts = db.relationship('Post', backref='user',lazy='dynamic')
-    
-    def __init__(self, username):
-        self.username = username
+
+    posts = db.relationship(
+        'Post', 
+        backref='teacher',
+        lazy='dynamic'
+    )
+    tch_crse = db.relationship(
+        'Course',
+        secondary = tch_crse,
+        backref=db.backref('crse_tch', lazy='dynamic')
+    )
+    tch_stu = db.relationship(
+        'Student',
+        secondary = tch_stu,
+        backref=db.backref('stu_tch', lazy='dynamic')
+    )
+
+    def __init__(self, teacher_name):
+        self.teacher_name = teacher_name
 
     def __repr__(self):
-        return '<User {}>' % self.username
+        return "<Teacher '{}'>".format(self.teacher_name)
+
+
+class Course(db.Model):
+    id = db.Column(db.Integer(),primary_key=True)
+    course_name =  db.Column(db.String(255))
+
+    def __init__(self, course_name):
+        self.course_name = course_name
+
+    def __repr__(self):
+        return "<Course '{}'>".format(self.course_name)
+
+class Student(db.Model):
+    id = db.Column(db.Integer(),primary_key=True)
+    student_name = db.Column(db.String(255))
+    password = db.Column(db.String(255))
+
+    posts = db.relationship(
+        'Post', 
+        backref='student',
+        lazy='dynamic'
+    )
+    stu_crse = db.relationship(
+        'Course',
+        secondary = stu_crse,
+        backref=db.backref('crse_stu', lazy='dynamic')
+    )
+
+    def __init__(self, student_name):
+        self.student_name = student_name
+
+    def __repr__(self):
+        return "<Student '{}'>".format(self.student_name)
 
 
 class Post(db.Model):
     id = db.Column(db.Integer(),primary_key=True)
     title = db.Column(db.String(255))
-    text = db.Column(db.Text())
     publish_date = db.Column(db.DateTime())
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    comments = db.relationship(
-        'Comment',
-        backref='post',
-        lazy='dynamic'
+    address = db.Column(db.String(255))
+    teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.id'))
+    student_id = db.Column(db.Integer, db.ForeignKey('student.id'))
+
+    reply = db.relationship(
+        'Reply',
+        uselist=False,
+        backref='post'
     )
     tags = db.relationship(
         'Tag',
@@ -60,24 +127,11 @@ class Post(db.Model):
         return "<Post '{}'>".format(self.title)
 
 
-class Comment(db.Model):
+class Reply(db.Model):
     id = db.Column(db.Integer(),primary_key=True)
-    name = db.Column(db.String(255))
     text = db.Column(db.Text())
     date = db.Column(db.DateTime())
     post_id = db.Column(db.Integer(), db.ForeignKey('post.id'))
 
     def __repr__(self):
-        return "<Comment '{}'>".format(self.text[:15])
-
-
-class Tag(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
-    title = db.Column(db.String(255))
-
-    def __init__(self, title):
-        self.title = title
-
-    def __repr__(self):
-        return "<Tag '{}'>".format(self.title)
-
+        return "<Reply '{}'>".format(self.text[:15])
