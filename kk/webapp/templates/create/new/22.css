@@ -1,19 +1,37 @@
 body {
     padding-top: 50px;
 }
-.parent{
-    width:800px;
-    margin:0 auto;
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>li>a:focus {
+  color:#ff7f2b !important;
+  background: transparent !important; 
 }
-.left{
-    background:pink;
-    width:100px;
-    height: 300px;
-    float:left;
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:focus {
+  background: transparent;
+  color:#ff7f2b  !important;
+  border-bottom: 1px solid #ff7f2b  !important;
 }
-.right{
-    float: right;
-    width:700px;
-    height: 300px;
-    background:red;
+.navbar-default {
+    background: #000111b0 !important;
+    border: 0 !important;
+    border-bottom: 1px solid #1112222d !important;
+  }
+.navbar-default .navbar-nav > li > a {
+    color:#bbb !important;
+    padding: 10px 0px 5px !important;
+    margin:4px 10px 0 !important;
+}
+.navbar-default .navbar-toggle {
+    border-color: #555555 !important;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background-color: #333 !important;
+}
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border-color: transparent !important;
+}
+.navbar-brand{
+    
 }
