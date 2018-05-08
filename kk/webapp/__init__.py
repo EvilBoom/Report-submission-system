@@ -1,7 +1,7 @@
 from flask import Flask,  redirect, url_for
 
 from .models import db
-from .controllers.blog import blog_blueprint
+from .controllers.blog import rss_blueprint
 
 def create_app(object_name):
 
@@ -13,9 +13,9 @@ def create_app(object_name):
 
     @app.route('/')
     def index():
-        return redirect(url_for('blog.home'))
+        return redirect(url_for('rss.home'))
 
 
-    app.register_blueprint(blog_blueprint)
+    app.register_blueprint(rss_blueprint)
 
     return app

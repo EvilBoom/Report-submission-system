@@ -24,10 +24,6 @@ def sidebar_data():
     return recent, top_tags
 
 @rss_blueprint.route('/')
-def index():
-    return render_template('home.html')
-
-
 @rss_blueprint.route('/<int:page>')
 def home(page = 1):
     posts = Post.query.order_by(Post.publish_date.desc()).paginate(page, 10)
