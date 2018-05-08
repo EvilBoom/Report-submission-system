@@ -7,11 +7,11 @@ from webapp.models import db, Post, Tag, Reply, tags
 from webapp.forms import ReplyForm
 
 
-blog_blueprint = Blueprint(
-    'blog',
+rss_blueprint = Blueprint(
+    'rss',
     __name__,
-    template_folder=path.join(path.pardir, 'templates', 'blog'),
-    url_prefix='/blog'
+    template_folder=path.join(path.pardir, 'templates', 'rss'),
+    url_prefix='/rss'
 )
 
 
@@ -23,8 +23,12 @@ def sidebar_data():
 
     return recent, top_tags
 
-@blog_blueprint.route('/')
-@blog_blueprint.route('/<int:page>')
+@rss_blueprint.route('/')
+def index():
+    return render_template('home.html')
+
+
+@rss_blueprint.route('/<int:page>')
 def home(page = 1):
     posts = Post.query.order_by(Post.publish_date.desc()).paginate(page, 10)
     recent, top_tags = sidebar_data()
@@ -37,7 +41,7 @@ def home(page = 1):
     )
 
 
-@blog_blueprint.route('/post/<int:post_id>', methods=('GET', 'POST'))
+@rss_blueprint.route('/post/<int:post_id>', methods=('GET', 'POST'))
 def post(post_id):
     form = ReplyForm()
     if form.validate_on_submit():
@@ -65,7 +69,7 @@ def post(post_id):
     )
 
 
-@blog_blueprint.route('/tag/<string:tag_name>')
+@rss_blueprint.route('/tag/<string:tag_name>')
 def tag(tag_name):
     tag = Tag.query.filter_by(title=tag_name).first_or_404()
     posts = tag.post.order_by(Post.publish_date.desc()).all()
@@ -80,7 +84,7 @@ def tag(tag_name):
     )
 
 
-@blog_blueprint.route('/usr/<string:username>')
+@rss_blueprint.route('/usr/<string:username>')
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = user.posts.order_by(Post.publish_date.desc()).all()

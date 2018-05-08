@@ -1,69 +1,23 @@
-<!DOCTYPE html>
-<!-- 提交文件，doc，pdf -->
-<html lang="zh-CN">
-  <head
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../img/bitbug_favicon.ico">
-    <title> 提交 </title>
+{% extends "base.html" %}
+{% block title %} 提交 {% endblock %} 
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+{% block navtitle %}<b>提交报告</b>{% endblock %}
 
-    <link href="../css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
-    <link href="../css/stu_base.css" rel="stylesheet">
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+{% endblock %}
 
-    <script src="../css/ie-emulation-modes-warning.js"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+{% block body %}
+ 
+<div>
+    <ol class="breadcrumb">
+        <li><a href="{{ url_for('.home') }}"><i>首页</i></a></li>       
+        <li><a href="#"><i>学生登录</i></a></li>
+        <li class="active"><b>课程成绩</b></li>       
+    </ol> 
+</div>
 
-  
-  <style id="style-1-cropbar-clipper">
-.en-markup-crop-options {
-    top: 18px !important;
-    left: 50% !important;
-    margin-left: -100px !important;
-    width: 200px !important;
-    border: 2px rgba(255,255,255,.38) solid !important;
-    border-radius: 4px !important;
-}
-
-.en-markup-crop-options div div:first-of-type {
-    margin-left: 0px !important;
-}
-</style>
-</head>
-
-  <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-right" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <img alt="Brand" src="../img/logo_noBG_green.png"  width="49" height="49">
-                <a class="navbar-brand" href="#"><b>提交报告</b></a>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav  navbar-right">
-                  <li class="active"><a href="#"><b>首页</b></a></li>
-                  <li><a href="#"><b>注销登陆</b></a></li>
-                  <li><a href="#"><b>问题反馈</b></a></li>
-                </ul>
-            </div><!--/.nav-collapse -->
-        </div>
-    </nav>
-    
-
-    <!-- Three columns of text below the carousel -->
     <div class="stusubm">
         <div class="container">
                 <h2 class="form-submition-heading" style="text-align: center">提交报告</h2>
@@ -94,42 +48,18 @@
             </form>
         </div> <!-- /container -->
     </div>
-    
-    
-
-     <!--Footer-begin-->
-  <footer class="footer">
-        <div class="container">
-          <div class="footer-logo">
-            <a href="">
-              <img src="../img/logo_noBG_green.png" alt="" width="75" height="75">
-            </a>
-          </div>
-          <span class="copyright">zhangbaoyu218@gmail.com</span>
-          <div class="credits">
-          </div>
-        </div>
-      </footer>
-      <!--Footer-end-->
-    
-    
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../js/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../js/bootstrap.min.js"></script>
+{% endblock %}
+  
+{% block js %}
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-
-    <script src="../js/ie10-viewport-bug-workaround.js"></script>
     <script>
-     $(window).on('load', function () {
-        $('#usertype').selectpicker({
-            'selectedText': 'cat'
-        });
-    });
-    </script>
+    $(window).on('load', function () {
+       $('#usertype').selectpicker({
+           'selectedText': 'cat'
+       });
+   });
+   </script>
+{% endblock %}
    
-
-</body></html>
+   

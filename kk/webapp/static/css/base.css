@@ -34,7 +34,7 @@ body {
 }
 
 .teaselect{
-    margin: 75px 75px 100px 75px;
+    margin: 100px 75px 100px 75px;
     padding: 15px;
 }
 .stuscore{
@@ -45,7 +45,13 @@ body {
     margin: 100px 100px 200px 100px;
     padding: 15px;
 }
-
+.innercover{
+    height: 100%;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
 .col-lg-4 {
     margin-bottom: 20px;
     text-align: center;
