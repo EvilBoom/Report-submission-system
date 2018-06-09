@@ -13,19 +13,19 @@
                 <img class="img-circle" src="{{ url_for('static', filename='./img/任务.png')}}" alt="Generic placeholder image" width="140" height="140">
                 <h2>新的任务</h2>
                 <p>课程教师会定时发布新的任务，请先下载任务的报告模板并仔细阅读要求，领取完任务后希望你可以按时完成任务并提交报告.</p>
-                <p><a class="btn btn-default" href="#" role="button"><b>View details »</b></a></p>
+                <p><a class="btn btn-default" href="{{ url_for('stu_task') }}" role="button"><b>View details »</b></a></p>
             </div>
             <div class="col-lg-4">
                 <img class="img-circle" src="{{ url_for('static', filename='./img/上传.png')}}" alt="Generic placeholder image" width="140" height="140">
                 <h2>上传报告</h2>
                 <p>在完成任务后，请按时提交你所完成的报告，请反复确认课程名称与任务及编码名称，确保教师可以正确的看到你的报告.</p>
-                <p><a class="btn btn-default" href="#" role="button"><b>View details »</b></a></p>
+                <p><a class="btn btn-default" href="{{ url_for('stu_subm') }}" role="button"><b>View details »</b></a></p>
             </div>
             <div class="col-lg-4">
                 <img class="img-circle" src="{{ url_for('static', filename='./img/成绩.png')}}" alt="Generic placeholder image" width="140" height="140">
                 <h2>查看成绩</h2>
                 <p>在完成一门课程的学习后，课程教师会根据你的课上表现与报告质量给出合适的成绩，你可以查看你所有学过课程的成绩.</p>
-                <p><a class="btn btn-default" href="#" role="button"><b>View details »</b></a></p>
+                <p><a class="btn btn-default" href="{{ url_for('stu_score') }}" role="button"><b>View details »</b></a></p>
             </div>
         </div><!-- /.row -->
     </div>

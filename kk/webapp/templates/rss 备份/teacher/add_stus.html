@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../img/bitbug_favicon.ico">
-    <title> 教师 </title>
+    <title> 添加 </title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
@@ -20,6 +20,7 @@
     <link href="../css/teabase.css" rel="stylesheet">
 
     <script src="../js/ie-emulation-modes-warning.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 
  
   <style id="style-1-cropbar-clipper">
@@ -43,7 +44,7 @@
         <div class="container">
             <div class="navbar-header">
                 <img alt="Brand" src="../img/logo_noBG_green.png"  width="49" height="49">
-                <a class="navbar-brand" href="#"><b>报告提交系统</b><sapn style="font-size:15px">Teacher</sapn></a>
+                <a class="navbar-brand" href="#"><b>单个学生添加</b></a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
@@ -53,38 +54,20 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav  navbar-right">
-                  <li class="active"><a href="../index.html"><b>首页</b></a></li>
-                  <li><a href="../index.html"><b>注销登陆</b></a></li>
+                  <li class="active"><a href="#"><b>首页</b></a></li>
+                  <li><a href="#"><b>注销登陆</b></a></li>
                   <li><a href="#"><b>问题反馈</b></a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
     </nav>
-    
-
-    <!-- Three columns of text below the carousel -->
     <div class="teaselect">
-            <div class="row">
-                    <div class="col-lg-4">
-                        <img class="img-circle" src="../img/课程表.png" alt="Generic placeholder image" width="140" height="140">
-                        <h2>信息添加</h2>
-                        <p>按步骤添加自己所教授的实验课程信息，并导入学生信息.<br/>系统提供课程提醒功能方便教师安排课程.</p>
-                        <p><a class="btn btn-default" href="./add.html" role="button"><b>View details »</b></a></p>
-                    </div><!-- /.col-lg-4 -->
-                    <div class="col-lg-4">
-                        <img class="img-circle" src="../img/作业.png" alt="Generic placeholder image" width="140" height="140">
-                        <h2>报告管理</h2>
-                        <p>教师可以发布报告任务，发布后可以继续查看报告的提交情况.<br/>在查看玩报告后可以对报告做出评论.</p>
-                        <p><a class="btn btn-default" href="./report.html" role="button"><b>View details »</b></a></p>
-                    </div><!-- /.col-lg-4 -->
-                    <div class="col-lg-4">
-                        <img class="img-circle" src="../img/评价.png" alt="Generic placeholder image" width="140" height="140">
-                        <h2>学生评价</h2>
-                        <p>在所教授的一门课程结束后，教师需要根据学生的的课上表现与报告质量给出合适的成绩。教师可以管理所有教授过课程的成绩.</p>
-                        <p><a class="btn btn-default" href="./add_score.html" role="button"><b>View details »</b></a></p>
-                    </div><!-- /.col-lg-4 -->
-                </div><!-- /.row -->
-    </div>
+            <h3 style="text-align: center;padding-bottom: 50px; color:rgb(79, 206, 29);font-size:50px;">完成添加，请返回</h3>
+            <br/><br/><br/><br/>
+            <center><a class="btn btn-lg btn-success" href="./teacher.html" role="button">返回</a></center>
+          
+        </div>
+        
     
     
 
@@ -110,8 +93,15 @@
     <script src="../js/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="../js/bootstrap.min.js"></script>
-
+ <!-- Latest compiled and minified JavaScript -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
     <script src="../js/ie10-viewport-bug-workaround.js"></script>
-  
+    <script>
+            $(window).on('load', function () {
+               $('#usertype').selectpicker({
+                   'selectedText': 'cat'
+               });
+           });
+           </script>
 
 </body></html>

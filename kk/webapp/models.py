@@ -28,6 +28,56 @@ tch_stu = db.Table(
     db.Column('student_id',db.Integer, db.ForeignKey('student.id')) 
 )
 
+task_stu = db.Table(
+    'task_student',
+    db.Column('task_id',db.Integer, db.ForeignKey('task.id')),
+    db.Column('student_id',db.Integer, db.ForeignKey('student.id'))
+)
+
+
+class Task(db.Model):
+    id = db.Column(db.Integer(),primary_key=True)
+    crse_name = db.Column(db.String(255))
+    date = db.Column(db.date())
+    text = db.Column(db.text())
+    cres_id = db.Column(db.Integer,db.ForeignKey('course.id'))
+
+    crse = db.relationship(
+        'Course',
+        backref=db.backref('Tasks')
+    )
+
+    task_stu = db.relationship(
+        'Student',
+        secondary = task_stu,
+        backref=db.backref('stu_task',lazy='dynamic')
+    )
+    def __init__(self, id):
+        self.id = id
+
+    def __repr__(self):
+        return "<Task '{}'>".format(self.id)
+
+class Score(db.Model):
+    id = db.Column(db.Integer(),primary_key=True)
+    score = db.Column(db.Integer())
+    stu_id = db.Column(db.Integer,db.ForeignKey('student.id'))
+    crse_id = db.Column(db.Integer,db.ForeignKey('course.id'))
+
+    crse = db.relationship(
+        'Course',
+        backref=db.backref('Scores')
+    )
+    stu = db.relationship(
+        'Student',
+        backref=db.backref('Scores')
+    )
+
+    def __init__(self, score):
+        self.score = score
+
+    def __repr__(self):
+        return "<Score '{}'>".format(self.score)
 
 class Tag(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
@@ -109,6 +159,15 @@ class Post(db.Model):
     teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.id'))
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'))
 
+    tea = db.relationship(
+        'Teacher',
+        backref=db.backref('posts')
+    )
+    stu = db.relationship(
+        'Student',
+        backref=db.backref('posts')
+    )
+
     reply = db.relationship(
         'Reply',
         uselist=False,
@@ -133,5 +192,9 @@ class Reply(db.Model):
     date = db.Column(db.DateTime())
     post_id = db.Column(db.Integer(), db.ForeignKey('post.id'))
 
+    psot = db.relationship(
+        'Post',
+        backref=db.backref('replys')
+    )
     def __repr__(self):
         return "<Reply '{}'>".format(self.text[:15])

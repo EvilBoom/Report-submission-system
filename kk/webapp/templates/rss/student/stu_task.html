@@ -17,13 +17,14 @@
 
     <div class="teaselect">
         <h3 style="text-align: center;padding-bottom: 50px; color:#F95858;font-size:50px;">任务列表</h3>
-        <div class="row">   
+        <div class="row">  
+            {% for task in tasks.items %} 
             <div class="col-lg-1"></div>              
             <div class="col-lg-10">
                 <div class="panel panel-primary">
-                    <div class="panel-heading">数据库</div>
+                    <div class="panel-heading">{{ task.crse_name }}</div>
                     <div class="panel-body">
-                        <p>这是本次的报告要求这是本次的报告要求这是本次的报告要求这是本次的报告要求这是本次的报告要求.</p>
+                            <p>{{ task.text }}</p>
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -34,41 +35,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>111</td>
-                                    <td>数据库与java</td>
-                                    <td>2018.3.2</td>
-                                </tr>
-                            </tbody>
-                        </table>    
-                    </div>
-                    <div class="panel-footer">发布人：张宝宇</div>
-                </div>
-            </div>
-            <div class="col-lg-1">
-                <p><a class="btn btn-primary" href="#" role="button" ><b>下载模板</b></a></p>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-lg-1"></div>              
-            <div class="col-lg-10">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">数据库</div>
-                    <div class="panel-body">
-                        <p>这是本次的报告要求这是本次的报告要求这是本次的报告要求这是本次的报告要求这是本次的报告要求.</p>
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>编号</th>
-                                    <th>名称</th>
-                                    <th>发布日期</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>111</td>
-                                    <td>数据库与java</td>
-                                    <td>2014.3.2</td>
+                                    <td>{{ task.id }}</td>
+                                    <td>{{ task.crse_name }}</td>
+                                    <td>{{ task.date }}</td>
                                 </tr>
                             </tbody>
                         </table>    
@@ -80,8 +49,7 @@
                 <p><a class="btn btn-primary" href="#" role="button" ><b>下载模板</b></a></p>
             </div>
         </div>
-    </div>
-
+        {% endfor %}
 {% endblock %}
     
 
